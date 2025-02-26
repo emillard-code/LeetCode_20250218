@@ -4,13 +4,14 @@ public class LeetCodeAttempt {
 
     public static void main(String[] args) {
 
-        System.out.println(constructSmallestNumber("IIIDIDDD", ""));
+        System.out.println(constructSmallestNumberFromDIString("IIIDIDDD"));
+        System.out.println(constructSmallestNumberFromDIString("DDD"));
 
     }
 
     public static String constructSmallestNumberFromDIString(String pattern) {
 
-        return null;
+        return constructSmallestNumber(pattern, "");
 
     }
 
@@ -20,6 +21,8 @@ public class LeetCodeAttempt {
 
         int startIndex = -1;
         int endIndex = -1;
+
+        if (output.length() > pattern.length()) { return output; }
 
         if (output.isEmpty()) {
 
@@ -47,6 +50,8 @@ public class LeetCodeAttempt {
 
         }
 
+        String finalOutput = "";
+
         for (int i = startIndex; i <= endIndex; i++) {
 
             String newOutput = output;
@@ -54,19 +59,16 @@ public class LeetCodeAttempt {
             if (!output.contains(Integer.toString(i))) {
 
                 newOutput = newOutput + i;
-                if (newOutput.length() > pattern.length()) {
-                    return newOutput;
-                }
                 newOutput = constructSmallestNumber(pattern, newOutput);
-                if (newOutput == null) { continue; }
-//                System.out.println("New Output: " + newOutput + ", Pattern: " + pattern);
-//                System.out.println("Start Index: " + startIndex + ", End Index: " + endIndex);
+                if (newOutput != null && newOutput.length() > finalOutput.length()) {
+                    finalOutput = newOutput;
+                }
 
             }
 
         }
 
-        return null;
+        return finalOutput;
 
     }
 
